@@ -20,6 +20,10 @@ __decorate([
     type_graphql_1.Field(() => String, { nullable: true }),
     __metadata("design:type", String)
 ], UpdateActorInput.prototype, "lastName", void 0);
+__decorate([
+    type_graphql_1.Field(() => String, { nullable: true }),
+    __metadata("design:type", String)
+], UpdateActorInput.prototype, "imageURL", void 0);
 UpdateActorInput = __decorate([
     type_graphql_1.InputType()
 ], UpdateActorInput);

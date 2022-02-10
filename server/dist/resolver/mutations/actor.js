@@ -16,8 +16,8 @@ const Actor_1 = require("../../entity/Actor");
 const type_graphql_1 = require("type-graphql");
 const Actor_2 = require("../../inputs/Actor");
 let ActorMutation = class ActorMutation {
-    async createActor(firstName, lastName) {
-        return await Actor_1.Actor.create({ firstName, lastName }).save();
+    async createActor(firstName, lastName, imageURL) {
+        return await Actor_1.Actor.create({ firstName, lastName, imageURL }).save();
     }
     async deleteActor(id) {
         const actor = await Actor_1.Actor.findOne(id);
@@ -42,8 +42,9 @@ __decorate([
     type_graphql_1.Mutation(() => Actor_1.Actor),
     __param(0, type_graphql_1.Arg("firstName")),
     __param(1, type_graphql_1.Arg("lastName")),
+    __param(2, type_graphql_1.Arg("imageURL")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:paramtypes", [String, String, String]),
     __metadata("design:returntype", Promise)
 ], ActorMutation.prototype, "createActor", null);
 __decorate([

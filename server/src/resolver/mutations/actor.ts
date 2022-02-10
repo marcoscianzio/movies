@@ -7,9 +7,10 @@ export class ActorMutation {
   @Mutation(() => Actor)
   async createActor(
     @Arg("firstName") firstName: string,
-    @Arg("lastName") lastName: string
+    @Arg("lastName") lastName: string,
+    @Arg("imageURL") imageURL: string
   ): Promise<Actor> {
-    return await Actor.create({ firstName, lastName }).save();
+    return await Actor.create({ firstName, lastName, imageURL }).save();
   }
 
   @Mutation(() => Boolean)

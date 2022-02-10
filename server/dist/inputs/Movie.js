@@ -41,6 +41,10 @@ __decorate([
 __decorate([
     type_graphql_1.Field(() => String),
     __metadata("design:type", String)
+], CreateMovieInput.prototype, "imageURL", void 0);
+__decorate([
+    type_graphql_1.Field(() => String),
+    __metadata("design:type", String)
 ], CreateMovieInput.prototype, "tagline", void 0);
 __decorate([
     type_graphql_1.Field(() => String),
@@ -84,6 +88,10 @@ __decorate([
     type_graphql_1.Field(() => String, { nullable: true }),
     __metadata("design:type", String)
 ], UpdateMovieInput.prototype, "title", void 0);
+__decorate([
+    type_graphql_1.Field(() => String, { nullable: true }),
+    __metadata("design:type", String)
+], UpdateMovieInput.prototype, "imageURL", void 0);
 __decorate([
     type_graphql_1.Field(() => String, { nullable: true }),
     __metadata("design:type", String)

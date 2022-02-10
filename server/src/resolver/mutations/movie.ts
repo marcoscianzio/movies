@@ -28,6 +28,7 @@ export class MovieMutation {
     });
 
     movie.genres = entityArray;
+    movie.imageURL = values.imageURL;
     movie.title = values.title;
     movie.description = values.description;
     movie.duration = values.duration;

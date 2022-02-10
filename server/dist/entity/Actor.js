@@ -30,6 +30,11 @@ __decorate([
     __metadata("design:type", String)
 ], Actor.prototype, "lastName", void 0);
 __decorate([
+    type_graphql_1.Field(() => String),
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Actor.prototype, "imageURL", void 0);
+__decorate([
     type_graphql_1.Field(() => [MovieToActor_1.MovieToActor], { nullable: true }),
     typeorm_1.OneToMany(() => MovieToActor_1.MovieToActor, (movieToActor) => movieToActor.actor, {
         onDelete: "CASCADE",

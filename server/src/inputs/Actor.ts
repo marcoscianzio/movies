@@ -7,4 +7,7 @@ export class UpdateActorInput {
 
   @Field(() => String, { nullable: true })
   lastName: string;
+
+  @Field(() => String, { nullable: true })
+  imageURL: string;
 }

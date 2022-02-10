@@ -25,6 +25,10 @@ export class Actor extends BaseEntity {
   @Column()
   lastName: string;
 
+  @Field(() => String)
+  @Column()
+  imageURL: string;
+
   @Field(() => [MovieToActor], { nullable: true })
   @OneToMany(() => MovieToActor, (movieToActor) => movieToActor.actor, {
     onDelete: "CASCADE",

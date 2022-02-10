@@ -29,6 +29,11 @@ __decorate([
     type_graphql_1.Field(() => String),
     typeorm_1.Column(),
     __metadata("design:type", String)
+], Movie.prototype, "imageURL", void 0);
+__decorate([
+    type_graphql_1.Field(() => String),
+    typeorm_1.Column(),
+    __metadata("design:type", String)
 ], Movie.prototype, "tagline", void 0);
 __decorate([
     type_graphql_1.Field(() => String),

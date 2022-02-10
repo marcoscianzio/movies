@@ -21,6 +21,9 @@ export class CreateMovieInput {
   title: string;
 
   @Field(() => String)
+  imageURL: string;
+
+  @Field(() => String)
   tagline: string;
 
   @Field(() => String)
@@ -52,6 +55,9 @@ export class CreateMovieInput {
 export class UpdateMovieInput {
   @Field(() => String, { nullable: true })
   title: string;
+
+  @Field(() => String, { nullable: true })
+  imageURL: string;
 
   @Field(() => String, { nullable: true })
   tagline: string;

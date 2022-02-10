@@ -26,6 +26,10 @@ export class Movie extends BaseEntity {
 
   @Field(() => String)
   @Column()
+  imageURL: string;
+
+  @Field(() => String)
+  @Column()
   tagline: string;
 
   @Field(() => String)
