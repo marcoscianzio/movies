@@ -20,7 +20,12 @@ let MovieQuery = class MovieQuery {
     }
     async movie(id) {
         const movie = Movie_1.Movie.findOne(id, {
-            relations: ["genres", "genres.movies", "movieToActor", "movieToActor.actor"],
+            relations: [
+                "genres",
+                "genres.movies",
+                "movieToActor",
+                "movieToActor.actor",
+            ],
         });
         if (!movie) {
             return undefined;
@@ -36,7 +41,7 @@ __decorate([
 ], MovieQuery.prototype, "movies", null);
 __decorate([
     type_graphql_1.Query(() => Movie_1.Movie),
-    __param(0, type_graphql_1.Arg("id")),
+    __param(0, type_graphql_1.Arg("id", () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)

@@ -1,5 +1,5 @@
 import { Movie } from "../../entity/Movie";
-import { Arg, Query, Resolver } from "type-graphql";
+import { Arg, Int, Query, Resolver } from "type-graphql";
 
 @Resolver()
 export class MovieQuery {
@@ -9,9 +9,14 @@ export class MovieQuery {
   }
 
   @Query(() => Movie)
-  async movie(@Arg("id") id: number): Promise<Movie | undefined> {
+  async movie(@Arg("id", () => Int) id: number): Promise<Movie | undefined> {
     const movie = Movie.findOne(id, {
-      relations: ["genres", "genres.movies", "movieToActor", "movieToActor.actor"],
+      relations: [
+        "genres",
+        "genres.movies",
+        "movieToActor",
+        "movieToActor.actor",
+      ],
     });
 
     if (!movie) {

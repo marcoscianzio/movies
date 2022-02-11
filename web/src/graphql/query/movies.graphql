@@ -1,0 +1,8 @@
+query Movies {
+  movies {
+    id
+    title
+    imageURL
+    rating
+  }
+}

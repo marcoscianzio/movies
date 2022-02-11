@@ -1,5 +1,5 @@
 import { Actor } from "../../entity/Actor";
-import { Arg, Query, Resolver } from "type-graphql";
+import { Arg, Int, Query, Resolver } from "type-graphql";
 
 @Resolver()
 export class ActorQuery {
@@ -11,7 +11,7 @@ export class ActorQuery {
   }
 
   @Query(() => Actor, { nullable: true })
-  async actor(@Arg("id") id: string): Promise<Actor | undefined> {
+  async actor(@Arg("id", () => Int) id: string): Promise<Actor | undefined> {
     const actor = await Actor.findOne(id, {
       relations: ["movieToActor", "movieToActor.movie"],
     });

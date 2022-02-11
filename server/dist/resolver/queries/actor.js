@@ -38,7 +38,7 @@ __decorate([
 ], ActorQuery.prototype, "actors", null);
 __decorate([
     type_graphql_1.Query(() => Actor_1.Actor, { nullable: true }),
-    __param(0, type_graphql_1.Arg("id")),
+    __param(0, type_graphql_1.Arg("id", () => type_graphql_1.Int)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)

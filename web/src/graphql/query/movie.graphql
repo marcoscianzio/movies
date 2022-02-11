@@ -1,0 +1,27 @@
+query Movie($movieId: Int!) {
+  movie(id: $movieId) {
+    id
+    title
+    tagline
+    description
+    rating
+    votes
+    realeseDate
+    duration
+    budget
+    genres {
+      name
+    }
+    createdAt
+    updatedAt
+    movieToActor {
+      role
+      actor {
+        id
+        firstName
+        lastName
+      }
+    }
+    imageURL
+  }
+}
