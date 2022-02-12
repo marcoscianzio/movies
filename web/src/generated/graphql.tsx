@@ -252,7 +252,7 @@ export type MovieQueryVariables = Exact<{
 }>;
 
 
-export type MovieQuery = { __typename?: 'Query', movie: { __typename?: 'Movie', id: number, title: string, tagline: string, description: string, rating: number, votes: number, realeseDate: string, duration: number, budget: number, createdAt: any, updatedAt: any, imageURL: string, genres: Array<{ __typename?: 'Genre', name: string }>, movieToActor?: Array<{ __typename?: 'MovieToActor', role: string, actor: { __typename?: 'Actor', id: number, firstName: string, lastName: string } }> | null } };
+export type MovieQuery = { __typename?: 'Query', movie: { __typename?: 'Movie', id: number, title: string, tagline: string, description: string, rating: number, votes: number, realeseDate: string, duration: number, budget: number, createdAt: any, updatedAt: any, imageURL: string, genres: Array<{ __typename?: 'Genre', name: string }>, movieToActor?: Array<{ __typename?: 'MovieToActor', role: string, actor: { __typename?: 'Actor', id: number, firstName: string, imageURL: string, lastName: string } }> | null } };
 
 export type MoviesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -282,6 +282,7 @@ export const MovieDocument = gql`
       actor {
         id
         firstName
+        imageURL
         lastName
       }
     }

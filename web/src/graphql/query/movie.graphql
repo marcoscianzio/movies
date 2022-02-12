@@ -19,6 +19,7 @@ query Movie($movieId: Int!) {
       actor {
         id
         firstName
+        imageURL
         lastName
       }
     }

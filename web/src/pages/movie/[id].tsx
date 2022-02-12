@@ -32,7 +32,7 @@ const MoviePage: React.FC<{}> = ({}) => {
 
   return (
     <Layout>
-      <Stack spacing={4}>
+      <Stack spacing={12}>
         <Stack
           w="full"
           h="80"
@@ -44,6 +44,7 @@ const MoviePage: React.FC<{}> = ({}) => {
           <Image
             rounded="md"
             objectFit="cover"
+            w="44"
             h="56"
             src={data?.movie?.imageURL}
           />
@@ -61,20 +62,48 @@ const MoviePage: React.FC<{}> = ({}) => {
             </HStack>
           </Stack>
         </Stack>
-        <Stack direction="row" spacing={12}>
-          <Stack w="56">
-            <Text color="white" fontSize="2xl">
+        <Stack w="full" direction="row" spacing={12}>
+          <Stack>
+            <Text w="44" color="white" fontSize="4xl">
               {secondsToHms(data?.movie?.duration)}
             </Text>
           </Stack>
 
-          <Stack w="full">
-            <Text as="b" color="white">
-              SINOPSIS
-            </Text>
-            <Text w="auto" color="movie.secondary" fontSize="22px">
-              {data?.movie?.description}
-            </Text>
+          <Stack spacing={24}>
+            <Stack spacing={4}>
+              <Text as="b" color="white">
+                SINOPSIS
+              </Text>
+              <Text w="auto" color="movie.secondary" fontSize="2xl">
+                {data?.movie?.description}
+              </Text>
+            </Stack>
+            <Stack spacing={4} pb={8}>
+              <Text as="b" color="white">
+                CAST
+              </Text>
+              <Stack spacing={8}>
+                {data?.movie?.movieToActor.map(({ actor, role }) => (
+                  <Stack direction="row" spacing={8}>
+                    <Image
+                      key={actor.id}
+                      src={actor.imageURL}
+                      borderRadius="full"
+                      boxSize="80px"
+                      objectFit="cover"
+                    />
+                    <Stack justify="center">
+                      <Text color="movie.primary" fontSize="xl">
+                        {actor.firstName} {actor.lastName}
+                      </Text>
+                      <Text color="white" as="b">
+                        {role}
+                      </Text>
+                    </Stack>
+                  </Stack>
+                ))}
+              </Stack>
+            </Stack>
           </Stack>
         </Stack>
       </Stack>
