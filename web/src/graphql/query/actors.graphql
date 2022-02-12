@@ -1,0 +1,9 @@
+query Actors {
+  actors {
+    id
+    firstName
+    lastName
+    movieCount
+    imageURL
+  }
+}

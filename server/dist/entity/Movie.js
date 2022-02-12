@@ -66,6 +66,16 @@ __decorate([
     __metadata("design:type", Number)
 ], Movie.prototype, "budget", void 0);
 __decorate([
+    type_graphql_1.Field(() => type_graphql_1.Int),
+    typeorm_1.RelationCount((movie) => movie.genres),
+    __metadata("design:type", Number)
+], Movie.prototype, "genreCount", void 0);
+__decorate([
+    type_graphql_1.Field(() => type_graphql_1.Int),
+    typeorm_1.RelationCount((movie) => movie.movieToActor),
+    __metadata("design:type", Number)
+], Movie.prototype, "actorCount", void 0);
+__decorate([
     type_graphql_1.Field(() => [Genre_1.Genre]),
     typeorm_1.ManyToMany(() => Genre_1.Genre, (genre) => genre.movies, {
         cascade: true,

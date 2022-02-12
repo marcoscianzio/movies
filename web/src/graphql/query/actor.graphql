@@ -1,0 +1,18 @@
+query Actor($actorId: Int!) {
+  actor(id: $actorId) {
+    id
+    firstName
+    lastName
+    imageURL
+    movieCount
+    movieToActor {
+      role
+      movie {
+        id
+        title
+        imageURL
+        rating
+      }
+    }
+  }
+}

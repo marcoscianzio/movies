@@ -24,5 +24,6 @@ query Movie($movieId: Int!) {
       }
     }
     imageURL
+    actorCount
   }
 }

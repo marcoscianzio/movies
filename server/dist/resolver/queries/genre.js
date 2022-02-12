@@ -19,7 +19,9 @@ let GenreQuery = class GenreQuery {
         return await Genre_1.Genre.find({ relations: ["movies", "movies.genres"] });
     }
     async genre(name) {
-        const genre = await Genre_1.Genre.findOne(name);
+        const genre = await Genre_1.Genre.findOne(name, {
+            relations: ["movies", "movies.genres"],
+        });
         if (!genre) {
             return undefined;
         }

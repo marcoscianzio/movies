@@ -10,7 +10,9 @@ export class GenreQuery {
 
   @Query(() => Genre, { nullable: true })
   async genre(@Arg("name") name: string): Promise<Genre | undefined> {
-    const genre = await Genre.findOne(name);
+    const genre = await Genre.findOne(name, {
+      relations: ["movies", "movies.genres"],
+    });
 
     if (!genre) {
       return undefined;

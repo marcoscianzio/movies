@@ -1,50 +1,31 @@
 import { Circle, HStack, Stack, Text } from "@chakra-ui/react";
-import { useRouter } from "next/dist/client/router";
+import Item from "./Item";
 
-interface MovieProps {
-  movie: any;
-}
+type MovieProps = {
+  movie: {
+    id: number;
+    imageURL: string;
+    title: string;
+    rating: number;
+  };
+  role?: string;
+};
 
-const Movie: React.FC<MovieProps> = ({ movie }) => {
-  const router = useRouter();
-
+const Movie: React.FC<MovieProps> = ({ movie, role }) => {
   return (
-    <Stack
-      className="movies-item"
-      bg="movie.background"
-      spacing={0}
-      role="group"
-      position="relative"
-      transition="transform 0.5s, opacity 0.5s"
-      rounded="md"
-      sx={{
-        "&:focus ~ .item, &:hover ~ .movies-item": {
-          transform: "translateX(15%)",
-          opacity: "0.4",
-        },
-      }}
-      onClick={() => router.push(`/movie/${movie.id}`)}
-    >
-      <Stack
-        key={movie.id}
-        rounded="md"
-        w="full"
-        h="56"
-        backgroundImage={movie.imageURL}
-        backgroundSize="cover"
-      />
-      <HStack
-        justify="space-between"
-        transition="all 0.4s"
-        py={4}
-        _groupHover={{ px: 4 }}
-      >
+    <Item path={`/pelicula/${movie.id}`} image={movie.imageURL}>
+      <HStack justify="space-between">
         <Text color="white">{movie.title}</Text>
         <Circle bg="movie.primary" size="30px" color="white" fontSize="12">
           {movie.rating}/5
         </Circle>
       </HStack>
-    </Stack>
+      {role ? (
+        <Text color="movie.primary" as="b">
+          Actuo como {role}
+        </Text>
+      ) : null}
+    </Item>
   );
 };
 

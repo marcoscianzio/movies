@@ -22,6 +22,7 @@ const theme = extendTheme({
     global: {
       body: {
         bg: "movie.background",
+        overflowX: "hidden",
       },
     },
   },

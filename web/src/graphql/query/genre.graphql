@@ -1,0 +1,11 @@
+query Genre($name: String!) {
+  genre(name: $name) {
+    name
+    movies {
+      id
+      title
+      imageURL
+      rating
+    }
+  }
+}

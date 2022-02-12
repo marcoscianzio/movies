@@ -8,6 +8,8 @@ import {
   Tag,
   Text,
 } from "@chakra-ui/react";
+import { useRouter } from "next/dist/client/router";
+import Header from "../../components/Header";
 import Layout from "../../components/Layout";
 import { useMovieQuery } from "../../generated/graphql";
 import { secondsToHms } from "../../utils/secondsToHms";
@@ -16,6 +18,8 @@ import { withApollo } from "../../utils/withApollo";
 
 const MoviePage: React.FC<{}> = ({}) => {
   const movieId = useGetIntId();
+
+  const router = useRouter();
 
   const { loading, data } = useMovieQuery({
     variables: { movieId },
@@ -32,14 +36,7 @@ const MoviePage: React.FC<{}> = ({}) => {
 
   return (
     <Layout>
-      <Stack spacing={12}>
-        <Stack
-          w="full"
-          h="80"
-          borderBottomLeftRadius="50%"
-          bgImage={data?.movie?.imageURL}
-          bgSize="cover"
-        />
+      <Header image={data?.movie?.imageURL}>
         <Stack direction="row" spacing={12}>
           <Image
             rounded="md"
@@ -54,9 +51,18 @@ const MoviePage: React.FC<{}> = ({}) => {
               {data?.movie?.title}
             </Heading>
             <HStack>
-              {data?.movie?.genres.map((genre) => (
-                <Tag key={genre.name} variant="outline">
-                  {genre.name}
+              {data?.movie?.genres.map(({ name }) => (
+                <Tag
+                  transition="opacity .2s"
+                  _hover={{
+                    cursor: "pointer",
+                    opacity: "0.8",
+                  }}
+                  onClick={() => router.push(`/genero/${name}`)}
+                  key={name}
+                  variant="outline"
+                >
+                  {name}
                 </Tag>
               ))}
             </HStack>
@@ -79,12 +85,32 @@ const MoviePage: React.FC<{}> = ({}) => {
               </Text>
             </Stack>
             <Stack spacing={4} pb={8}>
-              <Text as="b" color="white">
-                CAST
-              </Text>
+              <HStack justify="space-between">
+                <Text as="b" color="white">
+                  CAST
+                </Text>
+                <Text color="white">
+                  {data?.movie?.actorCount} actore
+                  {data?.movie?.actorCount == 1 ? null : "s"}
+                </Text>
+              </HStack>
+
               <Stack spacing={8}>
                 {data?.movie?.movieToActor.map(({ actor, role }) => (
-                  <Stack direction="row" spacing={8}>
+                  <Stack
+                    direction="row"
+                    transition="all 0.5s"
+                    spacing={8}
+                    rounded="md"
+                    _hover={{
+                      transform: "scale(1.2)",
+                      zIndex: 1000,
+                      cursor: "pointer",
+                      boxShadow: "dark-lg",
+                      p: 4,
+                    }}
+                    onClick={() => router.push(`/actor/${actor.id}`)}
+                  >
                     <Image
                       key={actor.id}
                       src={actor.imageURL}
@@ -106,9 +132,9 @@ const MoviePage: React.FC<{}> = ({}) => {
             </Stack>
           </Stack>
         </Stack>
-      </Stack>
+      </Header>
     </Layout>
   );
 };
 
-export default withApollo()(MoviePage);
+export default withApollo({ ssr: true })(MoviePage);

@@ -8,6 +8,7 @@ import {
   ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
+  RelationCount,
   UpdateDateColumn,
 } from "typeorm";
 import { Genre } from "./Genre";
@@ -55,6 +56,14 @@ export class Movie extends BaseEntity {
   @Field(() => Int)
   @Column()
   budget: number;
+
+  @Field(() => Int)
+  @RelationCount((movie: Movie) => movie.genres)
+  genreCount: number;
+
+  @Field(() => Int)
+  @RelationCount((movie: Movie) => movie.movieToActor)
+  actorCount: number;
 
   @Field(() => [Genre])
   @ManyToMany(() => Genre, (genre) => genre.movies, {

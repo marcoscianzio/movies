@@ -24,6 +24,7 @@ export type Actor = {
   id: Scalars['Int'];
   imageURL: Scalars['String'];
   lastName: Scalars['String'];
+  movieCount: Scalars['Int'];
   movieToActor?: Maybe<Array<MovieToActor>>;
   updatedAt: Scalars['DateTime'];
 };
@@ -59,10 +60,12 @@ export type GenreMovieInput = {
 
 export type Movie = {
   __typename?: 'Movie';
+  actorCount: Scalars['Int'];
   budget: Scalars['Int'];
   createdAt: Scalars['DateTime'];
   description: Scalars['String'];
   duration: Scalars['Int'];
+  genreCount: Scalars['Int'];
   genres: Array<Genre>;
   id: Scalars['Int'];
   imageURL: Scalars['String'];
@@ -247,12 +250,36 @@ export type NewActors = {
   actors?: InputMaybe<Array<ActorMovieInput>>;
 };
 
+export type ActorQueryVariables = Exact<{
+  actorId: Scalars['Int'];
+}>;
+
+
+export type ActorQuery = { __typename?: 'Query', actor?: { __typename?: 'Actor', id: number, firstName: string, lastName: string, imageURL: string, movieCount: number, movieToActor?: Array<{ __typename?: 'MovieToActor', role: string, movie: { __typename?: 'Movie', id: number, title: string, imageURL: string, rating: number } }> | null } | null };
+
+export type ActorsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ActorsQuery = { __typename?: 'Query', actors: Array<{ __typename?: 'Actor', id: number, firstName: string, lastName: string, movieCount: number, imageURL: string }> };
+
+export type GenreQueryVariables = Exact<{
+  name: Scalars['String'];
+}>;
+
+
+export type GenreQuery = { __typename?: 'Query', genre?: { __typename?: 'Genre', name: string, movies?: Array<{ __typename?: 'Movie', id: number, title: string, imageURL: string, rating: number }> | null } | null };
+
+export type GenresQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GenresQuery = { __typename?: 'Query', genres: Array<{ __typename?: 'Genre', name: string }> };
+
 export type MovieQueryVariables = Exact<{
   movieId: Scalars['Int'];
 }>;
 
 
-export type MovieQuery = { __typename?: 'Query', movie: { __typename?: 'Movie', id: number, title: string, tagline: string, description: string, rating: number, votes: number, realeseDate: string, duration: number, budget: number, createdAt: any, updatedAt: any, imageURL: string, genres: Array<{ __typename?: 'Genre', name: string }>, movieToActor?: Array<{ __typename?: 'MovieToActor', role: string, actor: { __typename?: 'Actor', id: number, firstName: string, imageURL: string, lastName: string } }> | null } };
+export type MovieQuery = { __typename?: 'Query', movie: { __typename?: 'Movie', id: number, title: string, tagline: string, description: string, rating: number, votes: number, realeseDate: string, duration: number, budget: number, createdAt: any, updatedAt: any, imageURL: string, actorCount: number, genres: Array<{ __typename?: 'Genre', name: string }>, movieToActor?: Array<{ __typename?: 'MovieToActor', role: string, actor: { __typename?: 'Actor', id: number, firstName: string, imageURL: string, lastName: string } }> | null } };
 
 export type MoviesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -260,6 +287,167 @@ export type MoviesQueryVariables = Exact<{ [key: string]: never; }>;
 export type MoviesQuery = { __typename?: 'Query', movies: Array<{ __typename?: 'Movie', id: number, title: string, imageURL: string, rating: number }> };
 
 
+export const ActorDocument = gql`
+    query Actor($actorId: Int!) {
+  actor(id: $actorId) {
+    id
+    firstName
+    lastName
+    imageURL
+    movieCount
+    movieToActor {
+      role
+      movie {
+        id
+        title
+        imageURL
+        rating
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useActorQuery__
+ *
+ * To run a query within a React component, call `useActorQuery` and pass it any options that fit your needs.
+ * When your component renders, `useActorQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useActorQuery({
+ *   variables: {
+ *      actorId: // value for 'actorId'
+ *   },
+ * });
+ */
+export function useActorQuery(baseOptions: Apollo.QueryHookOptions<ActorQuery, ActorQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ActorQuery, ActorQueryVariables>(ActorDocument, options);
+      }
+export function useActorLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ActorQuery, ActorQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ActorQuery, ActorQueryVariables>(ActorDocument, options);
+        }
+export type ActorQueryHookResult = ReturnType<typeof useActorQuery>;
+export type ActorLazyQueryHookResult = ReturnType<typeof useActorLazyQuery>;
+export type ActorQueryResult = Apollo.QueryResult<ActorQuery, ActorQueryVariables>;
+export const ActorsDocument = gql`
+    query Actors {
+  actors {
+    id
+    firstName
+    lastName
+    movieCount
+    imageURL
+  }
+}
+    `;
+
+/**
+ * __useActorsQuery__
+ *
+ * To run a query within a React component, call `useActorsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useActorsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useActorsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useActorsQuery(baseOptions?: Apollo.QueryHookOptions<ActorsQuery, ActorsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ActorsQuery, ActorsQueryVariables>(ActorsDocument, options);
+      }
+export function useActorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ActorsQuery, ActorsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ActorsQuery, ActorsQueryVariables>(ActorsDocument, options);
+        }
+export type ActorsQueryHookResult = ReturnType<typeof useActorsQuery>;
+export type ActorsLazyQueryHookResult = ReturnType<typeof useActorsLazyQuery>;
+export type ActorsQueryResult = Apollo.QueryResult<ActorsQuery, ActorsQueryVariables>;
+export const GenreDocument = gql`
+    query Genre($name: String!) {
+  genre(name: $name) {
+    name
+    movies {
+      id
+      title
+      imageURL
+      rating
+    }
+  }
+}
+    `;
+
+/**
+ * __useGenreQuery__
+ *
+ * To run a query within a React component, call `useGenreQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGenreQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGenreQuery({
+ *   variables: {
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useGenreQuery(baseOptions: Apollo.QueryHookOptions<GenreQuery, GenreQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GenreQuery, GenreQueryVariables>(GenreDocument, options);
+      }
+export function useGenreLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GenreQuery, GenreQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GenreQuery, GenreQueryVariables>(GenreDocument, options);
+        }
+export type GenreQueryHookResult = ReturnType<typeof useGenreQuery>;
+export type GenreLazyQueryHookResult = ReturnType<typeof useGenreLazyQuery>;
+export type GenreQueryResult = Apollo.QueryResult<GenreQuery, GenreQueryVariables>;
+export const GenresDocument = gql`
+    query Genres {
+  genres {
+    name
+  }
+}
+    `;
+
+/**
+ * __useGenresQuery__
+ *
+ * To run a query within a React component, call `useGenresQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGenresQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGenresQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGenresQuery(baseOptions?: Apollo.QueryHookOptions<GenresQuery, GenresQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GenresQuery, GenresQueryVariables>(GenresDocument, options);
+      }
+export function useGenresLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GenresQuery, GenresQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GenresQuery, GenresQueryVariables>(GenresDocument, options);
+        }
+export type GenresQueryHookResult = ReturnType<typeof useGenresQuery>;
+export type GenresLazyQueryHookResult = ReturnType<typeof useGenresLazyQuery>;
+export type GenresQueryResult = Apollo.QueryResult<GenresQuery, GenresQueryVariables>;
 export const MovieDocument = gql`
     query Movie($movieId: Int!) {
   movie(id: $movieId) {
@@ -287,6 +475,7 @@ export const MovieDocument = gql`
       }
     }
     imageURL
+    actorCount
   }
 }
     `;

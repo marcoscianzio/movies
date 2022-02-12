@@ -6,6 +6,7 @@ import {
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
+  RelationCount,
   UpdateDateColumn,
 } from "typeorm";
 import { MovieToActor } from "./MovieToActor";
@@ -28,6 +29,10 @@ export class Actor extends BaseEntity {
   @Field(() => String)
   @Column()
   imageURL: string;
+
+  @Field(() => Int)
+  @RelationCount((actor: Actor) => actor.movieToActor)
+  movieCount: number;
 
   @Field(() => [MovieToActor], { nullable: true })
   @OneToMany(() => MovieToActor, (movieToActor) => movieToActor.actor, {
