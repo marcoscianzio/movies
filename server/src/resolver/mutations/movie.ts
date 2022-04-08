@@ -33,10 +33,10 @@ export class MovieMutation {
     movie.description = values.description;
     movie.duration = values.duration;
     movie.rating = values.rating;
-    movie.realeseDate = movie.realeseDate;
-    movie.tagline = movie.tagline;
-    movie.votes = movie.votes;
-    movie.budget = movie.budget;
+    movie.realeseDate = values.realeseDate;
+    movie.tagline = values.tagline;
+    movie.votes = values.votes;
+    movie.budget = values.budget;
 
     await getConnection().manager.save(movie);
 

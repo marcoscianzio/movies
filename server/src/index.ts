@@ -7,7 +7,7 @@ import connectRedis from "connect-redis";
 import { MyContext } from "./types";
 import Redis from "ioredis";
 import session from "express-session";
-import { schema } from "./resolver";
+import { buildSchema } from "type-graphql";
 
 const main = async () => {
   await createConnection();
@@ -46,7 +46,9 @@ const main = async () => {
   );
 
   const apolloServer = new ApolloServer({
-    schema: await schema,
+    schema: await buildSchema({
+      resolvers: [__dirname + "/resolver/**/*.js"],
+    }),
     context: ({ req, res }): MyContext => ({ req, res, redis }),
   });
 

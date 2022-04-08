@@ -35,8 +35,8 @@ export class CreateMovieInput {
   @Field(() => Int)
   votes: number;
 
-  @Field(() => Date)
-  realeseDate: Date;
+  @Field(() => String)
+  realeseDate: string;
 
   @Field(() => Int)
   duration: number;

@@ -46,7 +46,7 @@ export class Movie extends BaseEntity {
   votes: number;
 
   @Field(() => String)
-  @Column({ type: "date" })
+  @Column()
   realeseDate: string;
 
   @Field(() => Int)

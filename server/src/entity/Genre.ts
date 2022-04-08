@@ -1,11 +1,5 @@
-import { Field, Int, ObjectType } from "type-graphql";
-import {
-  BaseEntity,
-  Entity,
-  ManyToMany,
-  PrimaryColumn,
-  RelationCount,
-} from "typeorm";
+import { Field, ObjectType } from "type-graphql";
+import { BaseEntity, Entity, ManyToMany, PrimaryColumn } from "typeorm";
 import { Movie } from "./Movie";
 
 @ObjectType()
